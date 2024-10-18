@@ -6,6 +6,11 @@
     "node": ">=20.15",
     "pnpm": ">=9.5"
   },
+  {
+  "engines": {
+    "node": "16.x"
+  }
+}
   "packageManager": "pnpm@9.6.0",
   "scripts": {
     "prepare": "node scripts/prepare.mjs",
