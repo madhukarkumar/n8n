@@ -2,20 +2,25 @@ services:
   - type: web
     name: n8n
     env: docker
-    image: n8nio/n8n:latest     # <— image goes here (no “docker:” wrapper)
-    plan: standard
+    dockerfilePath: ./docker/images/n8n/Dockerfile
     envVars:
-      - key: N8N_ENCRYPTION_KEY
-        sync: false             # set this in the Render dashboard
-      - key: WEBHOOK_URL
-        value: https://n8n.onrender.com/   # replace with your service URL after first deploy
       - key: N8N_BASIC_AUTH_ACTIVE
-        value: "true"
+        value: true
       - key: N8N_BASIC_AUTH_USER
-        sync: false
+        generateValue: true
       - key: N8N_BASIC_AUTH_PASSWORD
-        sync: false
+        generateValue: true
+      - key: N8N_HOST
+        value: https://your-app-name.onrender.com
+      - key: WEBHOOK_URL
+        value: https://your-app-name.onrender.com
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
+      - key: DATABASE_TYPE
+        value: sqlite
+      - key: DATABASE_SQLITE_DATABASE_FILE
+        value: /data/database.sqlite
     disk:
       name: n8n-data
-      mountPath: /home/node     # persists ~/.n8n (workflows, creds)
-      sizeGB: 10
+      mountPath: /data
+      sizeGB: 1
