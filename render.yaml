@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: n8n
+    env: docker
+    docker:
+      image: n8nio/n8n:latest
+    plan: standard
+    envVars:
+      - key: N8N_ENCRYPTION_KEY
+        sync: false   # set in Render dashboard (long random string)
+      - key: WEBHOOK_URL
+        value: https://n8n.onrender.com/   # replace with your Render URL
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        sync: false   # set in Render dashboard
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false   # set in Render dashboard
+    disk:
+      name: n8n-data
+      mountPath: /home/node
+      sizeGB: 10
